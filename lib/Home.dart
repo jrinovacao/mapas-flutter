@@ -8,8 +8,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  Completer<GoogleMapController> _controller = Completer();
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: Text("Mapas e geolocalização"),),
+      body: Container(
+        child: GoogleMap(
+          mapType: MapType.normal,
+            initialCameraPosition: CameraPosition(
+                target: LatLng(-23.562436, -46.655005),
+              zoom: 16
+            ),
+          onMapCreated: (GoogleMapController controller){
+            _controller.complete(controller);
+          },
+        ),
+      ),
+    );
   }
 }
