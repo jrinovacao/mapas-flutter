@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Completer<GoogleMapController> _controller = Completer();
-
+  Set<Marker> _marcadore = {};
   _onMapCreated(GoogleMapController googleMapController){
 
    _controller.complete( googleMapController );
@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
   _movimentarCamera()async{
 
    GoogleMapController googleMapController = await _controller.future;
+
    googleMapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -31,6 +32,22 @@ class _HomeState extends State<Home> {
       )
    );
 
+  }
+
+  _carregarMarcadores(){
+
+    Marker marcadorShopping = Marker(
+        markerId: MarkerId("marcador-shopping"),
+      position: LatLng()
+    );
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _carregarMarcadores();
   }
 
 
@@ -52,6 +69,7 @@ class _HomeState extends State<Home> {
               zoom: 16
             ),
           onMapCreated: _onMapCreated,
+          markers: _marcadores,
         ),
       ),
     );
