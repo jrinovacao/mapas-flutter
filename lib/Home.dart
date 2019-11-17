@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -74,11 +75,26 @@ class _HomeState extends State<Home> {
 
   }
 
+
+   _recuperarLocalizacaoAtual() async{
+
+     Position position = await Geolocator().getCurrentPosition(
+       desiredAccuracy: LocationAccuracy.high
+     );
+
+
+     print("localizacao atual: " + position.toString());
+
+
+   }
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _carregarMarcadores();
+    //_carregarMarcadores();
+    _recuperarLocalizacaoAtual();
   }
 
 
