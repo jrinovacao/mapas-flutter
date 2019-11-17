@@ -36,10 +36,25 @@ class _HomeState extends State<Home> {
 
   _carregarMarcadores(){
 
+    Set<Marker> marcadoresLocal = {};
+
     Marker marcadorShopping = Marker(
         markerId: MarkerId("marcador-shopping"),
-      position: LatLng()
+        position: LatLng(-23.563370, -46.652923)
     );
+
+    Marker marcadorCartorio = Marker(
+        markerId: MarkerId("marcador-cartorio"),
+        position: LatLng(-23.562868, -46.655874)
+    );
+
+    marcadoresLocal.add(marcadorShopping);
+    marcadoresLocal.add(marcadorCartorio);
+
+
+    setState(() {
+      _marcadore = marcadoresLocal;
+    });
 
   }
 
@@ -65,11 +80,11 @@ class _HomeState extends State<Home> {
           //mapType: MapType.satellite,
             mapType: MapType.normal,
             initialCameraPosition: CameraPosition(
-                target: LatLng(-30.086764, -51.045771),
+                target: LatLng(-23.563370, -46.652923),
               zoom: 16
             ),
           onMapCreated: _onMapCreated,
-          markers: _marcadores,
+          markers: _marcadore,
         ),
       ),
     );
