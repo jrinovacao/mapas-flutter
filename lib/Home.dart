@@ -40,12 +40,28 @@ class _HomeState extends State<Home> {
 
     Marker marcadorShopping = Marker(
         markerId: MarkerId("marcador-shopping"),
-        position: LatLng(-23.563370, -46.652923)
+        position: LatLng(-23.563370, -46.652923),
+      infoWindow: InfoWindow(
+        title: "Shopping Cidade de São Paulo"
+      ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(
+         BitmapDescriptor.hueMagenta
+      ),
+      onTap: (){
+          print("Shopping clicado!");
+      }
     );
 
     Marker marcadorCartorio = Marker(
         markerId: MarkerId("marcador-cartorio"),
-        position: LatLng(-23.562868, -46.655874)
+        position: LatLng(-23.562868, -46.655874),
+        infoWindow: InfoWindow(
+        title: "12 Cartorio de notas"
+       ),
+      icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueAzure
+      ),
+      //rotation: 45
     );
 
     marcadoresLocal.add(marcadorShopping);
