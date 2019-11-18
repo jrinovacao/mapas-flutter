@@ -11,6 +11,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   Completer<GoogleMapController> _controller = Completer();
+  CameraPosition _posicaoCamera =  CameraPosition(
+      target: LatLng(-23.563370, -46.652923),
+      zoom: 16
+  );
+
+
+
   Set<Marker> _marcadore = {};
   _onMapCreated(GoogleMapController googleMapController){
 
@@ -24,12 +31,7 @@ class _HomeState extends State<Home> {
 
    googleMapController.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(
-            target: LatLng(-30.086764, -51.045771),
-          zoom: 16,
-          tilt: 0,
-          bearing: 30
-        )
+        _posicaoCamera
       )
    );
 
@@ -82,8 +84,15 @@ class _HomeState extends State<Home> {
        desiredAccuracy: LocationAccuracy.high
      );
 
+      setState(() {
+        _posicaoCamera = CameraPosition(
+          target: LatLng(position.latitude, position.longitude),
+          zoom: 17
+        );
+        _movimentarCamera();
+      });
 
-     print("localizacao atual: " + position.toString());
+     // print("localizacao atual: " + position.toString());
 
 
    }
@@ -111,12 +120,10 @@ class _HomeState extends State<Home> {
         child: GoogleMap(
           //mapType: MapType.satellite,
             mapType: MapType.normal,
-            initialCameraPosition: CameraPosition(
-                target: LatLng(-23.563370, -46.652923),
-              zoom: 16
-            ),
+            initialCameraPosition: _posicaoCamera,
           onMapCreated: _onMapCreated,
-          markers: _marcadore,
+           myLocationEnabled: true,
+          //markers: _marcadore,
         ),
       ),
     );
