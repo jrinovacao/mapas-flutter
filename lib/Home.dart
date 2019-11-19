@@ -126,12 +126,45 @@ class _HomeState extends State<Home> {
    }
 
 
+   _recuperarLocalparaEndereco()async{
+
+   List<Placemark> listaEndereco = await Geolocator()
+       .placemarkFromAddress("Av. Paulista, 1372");
+
+
+      print("total:" + listaEndereco.length.toString());
+
+      if(listaEndereco != null && listaEndereco.length > 0){
+
+        Placemark endereco = listaEndereco[0];
+
+        String resultado;
+
+        resultado = "\n administrativeArea" + endereco.administrativeArea;
+        resultado += "\n subAdministrativeArea" + endereco.subAdministrativeArea;
+        resultado += "\n locality" + endereco.locality;
+        resultado += "\n subLocality" + endereco.subLocality;
+        resultado += "\n subLocality" + endereco.thoroughfare;
+        resultado += "\n subThoroughfare" + endereco.subThoroughfare;
+        resultado += "\n postalCode" + endereco.postalCode;
+        resultado += "\n country" + endereco.country;
+        resultado += "\n isoCountryCode" + endereco.isoCountryCode;
+        resultado += "\n position" + endereco.position.toString();
+
+        print("resultado: " + resultado);
+
+      }
+
+   }
+
+
   @override
   void initState() {
     super.initState();
     //_carregarMarcadores();
-    _recuperarLocalizacaoAtual();
+    //_recuperarLocalizacaoAtual();
     //_adicionarListenerLocalizacao();
+    _recuperarLocalparaEndereco();
   }
 
 
