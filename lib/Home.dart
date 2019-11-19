@@ -80,9 +80,11 @@ class _HomeState extends State<Home> {
 
    _recuperarLocalizacaoAtual() async{
 
+
      Position position = await Geolocator().getCurrentPosition(
-       desiredAccuracy: LocationAccuracy.high
+         desiredAccuracy: LocationAccuracy.high
      );
+
 
       setState(() {
         _posicaoCamera = CameraPosition(
@@ -92,18 +94,44 @@ class _HomeState extends State<Home> {
         _movimentarCamera();
       });
 
-     // print("localizacao atual: " + position.toString());
 
+
+    // print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
+
+
+
+
+   }
+
+   _adicionarListenerLocalizacao(){
+
+      var geolocator = Geolocator();
+      var locationsOptions = LocationOptions(
+         accuracy: LocationAccuracy.high,
+        distanceFilter: 10
+      );
+      geolocator.getPositionStream(locationsOptions).listen((Position position){
+        print("localizacao atual: " + position.toString());
+
+        setState(() {
+          _posicaoCamera = CameraPosition(
+              target: LatLng(position.latitude, position.longitude),
+              zoom: 17
+          );
+          _movimentarCamera();
+        });
+
+      });
 
    }
 
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     //_carregarMarcadores();
     _recuperarLocalizacaoAtual();
+    //_adicionarListenerLocalizacao();
   }
 
 
